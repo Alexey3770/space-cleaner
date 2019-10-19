@@ -17,12 +17,12 @@ public class PlaySoundManager {
     public PlaySoundManager() {
 
         // short sounds
-        clickSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        iceAttackSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        laserAttackSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        collisionSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        moneySound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        cleanGarbage = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("clickSound.mp3"));
+        iceAttackSound = Gdx.audio.newSound(Gdx.files.internal("iceAttackSound.mp3"));
+        laserAttackSound = Gdx.audio.newSound(Gdx.files.internal("laserAttackSound.mp3"));
+        collisionSound = Gdx.audio.newSound(Gdx.files.internal("collisionSound.mp3"));
+        moneySound = Gdx.audio.newSound(Gdx.files.internal("moneySound.mp3"));
+        cleanGarbage = Gdx.audio.newSound(Gdx.files.internal("cleanGarbage.mp3"));
 
         // long sounds
         bdMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
