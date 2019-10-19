@@ -111,7 +111,8 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         updateObjects(dt, spaceObjects);
         updateObjects(dt, userObjects);
         collisionService.checkCollision(userObjects, spaceObjects);
-        gameObjectMaker.update(camera, 40, dt);
+        userControlPanel.update();
+        gameObjectMaker.update(camera, dt);
     }
 
     private void updateObjects(float dt, List<? extends GameObject> objects) {
