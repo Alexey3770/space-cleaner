@@ -21,9 +21,6 @@ public abstract class State {
         camera = new OrthographicCamera();
     }
 
-    //пользовательский ввод
-    protected abstract void handleInput();
-
     //обновляет картинку
     public void update(float dt) {
         for(View v: components) {
@@ -37,7 +34,9 @@ public abstract class State {
 
     //рисовние экрана
     //SpriteBatch - выставляет текстуру и координаты для фигур
-    public abstract void render(SpriteBatch sb);
+    public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(camera.combined);
+    }
 
     public void renderStatic(SpriteBatch staticBatch) {
         for(View v: components) {
@@ -50,6 +49,13 @@ public abstract class State {
         for (View v: components) {
             v.dispose();
         }
+    }
+
+    //пользовательский ввод
+    protected abstract void handleInput();
+
+    protected void addView(View view) {
+        components.add(view);
     }
 
     public enum GameState
