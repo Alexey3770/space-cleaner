@@ -12,6 +12,7 @@ import com.dethreeca.space_cleaner.game_object.user_object.ammo.Ammo;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.LaserAttack;
 import com.dethreeca.space_cleaner.utils.CollisionService;
 import com.dethreeca.space_cleaner.utils.GameObjectMaker;
+import com.dethreeca.space_cleaner.utils.PlaySoundManager;
 import com.dethreeca.space_cleaner.utils.TextureManager;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
     private TextureManager textureManager;
     private CollisionService collisionService;
     private UserControlPanel userControlPanel;
+    private PlaySoundManager soundManager;
 
     public GamePlay(GameStateManager gsm) {
         super(gsm);
@@ -44,6 +46,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         userControlPanel = new UserControlPanel(SpaceCleaner.WIDTH, SpaceCleaner.HEIGTH, textureManager);
         addAllView(userControlPanel.getViews());
         userControlPanel.setListener(this);
+        soundManager = new PlaySoundManager();
         initGameObjects();
     }
 
@@ -154,10 +157,12 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
     @Override
     public void onAddIceAttack() {
         userObjects.add(gameObjectMaker.createIceAttack());
+        soundManager.playIceAttackSound();
     }
 
     @Override
     public void onAddLaser() {
         userObjects.add(gameObjectMaker.createLaserAttack());
+        soundManager.playLaserAttackSound();
     }
 }

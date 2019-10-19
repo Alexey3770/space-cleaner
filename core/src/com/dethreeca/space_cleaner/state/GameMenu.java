@@ -38,17 +38,19 @@ public class GameMenu extends State {
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){
-            float pressMenuButton = buttonRectangle.height/3 ;
-            if(Gdx.input.getY()>buttonRectangle.y && Gdx.input.getY()<buttonRectangle.y+pressMenuButton){
-                gsm.push(new GamePlay(gsm));
-            }
-            if(Gdx.input.getY()>buttonRectangle.y+pressMenuButton && Gdx.input.getY()<buttonRectangle.y+2*pressMenuButton){
-                gsm.push(new GamePlay(gsm));
-            }
-            if(Gdx.input.getY()>buttonRectangle.y+2*pressMenuButton && Gdx.input.getY()<buttonRectangle.y+3*pressMenuButton){
-                gsm.push(new GamePlay(gsm));
-            }
+
             gsm.set(new GamePlay(gsm));
+//            float pressMenuButton = buttonRectangle.height/3 ;
+//            if(Gdx.input.getY()>buttonRectangle.y && Gdx.input.getY()<buttonRectangle.y+pressMenuButton){
+//                gsm.push(new GamePlay(gsm));
+//            }
+//            if(Gdx.input.getY()>buttonRectangle.y+pressMenuButton && Gdx.input.getY()<buttonRectangle.y+2*pressMenuButton){
+//                gsm.push(new GamePlay(gsm));
+//            }
+//            if(Gdx.input.getY()>buttonRectangle.y+2*pressMenuButton && Gdx.input.getY()<buttonRectangle.y+3*pressMenuButton){
+//                gsm.push(new GamePlay(gsm));
+//            }
+//            gsm.set(new GamePlay(gsm));
         }
     }
 

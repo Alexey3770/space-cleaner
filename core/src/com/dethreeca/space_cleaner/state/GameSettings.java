@@ -50,12 +50,6 @@ public class  GameSettings extends State {
     }
 
     @Override
-    public void handleAccelerometer() {
-
-
-    }
-
-    @Override
     protected void handleInput() {
        /* if(Gdx.input.justTouched()){
             float pressMenuButton = buttonRectangle.height/3 ;
