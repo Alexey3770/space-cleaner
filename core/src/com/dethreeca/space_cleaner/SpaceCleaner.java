@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dethreeca.space_cleaner.state.GameMenu;
+import com.dethreeca.space_cleaner.state.GameSettings;
 import com.dethreeca.space_cleaner.state.GameStateManager;
 
 public class SpaceCleaner extends ApplicationAdapter {
@@ -24,7 +25,7 @@ public class SpaceCleaner extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
         WIDTH = Gdx.graphics.getWidth();
         HEIGTH = Gdx.graphics.getHeight();
-		gameStateManager.push(new GameMenu(gameStateManager));
+		gameStateManager.push(new GameSettings(gameStateManager));
 	}
 
 	@Override
