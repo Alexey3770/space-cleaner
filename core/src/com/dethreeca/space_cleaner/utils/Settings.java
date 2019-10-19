@@ -10,6 +10,8 @@ public class Settings {
     private static String COUNT_MIDDLE_GARBAGE_PREFERENCES_KEY = "COUNT_MIDDLE_GARBAGE_PREFERENCES_KEY";
     private static String COUNT_BIG_GARBAGE_PREFERENCES_KEY = "COUNT_BIG_GARBAGE_PREFERENCES_KEY";
     private static String PATH_LENGTH_PREFERENCES_KEY = "PATH_LENGTH_PREFERENCES_KEY";
+    private static String FUEL_VALUE_PREFERENCES_KEY = "FUEL_VALUE_PREFERENCES_KEY";
+    private static String LEVEL_PREFERENCES_KEY = "LEVEL_PREFERENCES_KEY";
     private static Settings instance;
     private Preferences prefs;
 
@@ -62,5 +64,21 @@ public class Settings {
 
     public void setPathLength(int pathLength) {
         prefs.putInteger(PATH_LENGTH_PREFERENCES_KEY, pathLength);
+    }
+
+    public int getFuelValue() {
+        return prefs.getInteger(FUEL_VALUE_PREFERENCES_KEY, 0);
+    }
+
+    public void setFuelValue(int flueValue) {
+        prefs.putInteger(FUEL_VALUE_PREFERENCES_KEY, flueValue);
+    }
+
+    public int getLevel(){
+        return prefs.getInteger(LEVEL_PREFERENCES_KEY,0);
+    }
+
+    public void setLevel(int level){
+        prefs.putInteger(LEVEL_PREFERENCES_KEY, level);
     }
 }
