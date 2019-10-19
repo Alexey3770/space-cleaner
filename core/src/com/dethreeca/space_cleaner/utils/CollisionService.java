@@ -7,6 +7,7 @@ import com.dethreeca.space_cleaner.game_object.user_object.UserObject;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.Ammo;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.IceAttack;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.LaserAttack;
+import com.dethreeca.space_cleaner.model.User;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class CollisionService {
         if (spaceObject instanceof Artifact) {
             if (((Artifact) spaceObject).getTypeSpaceObject() == Medium) {
                 spaceObject.remove();
+                User.getInstance().removePlaceInBucket();
             }
         } else {
             if (listener != null) {

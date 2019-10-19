@@ -33,6 +33,7 @@ public class User {
     }
 
     private User() {
+        init();
     }
 
     public void countingLevel(float currentPath) {

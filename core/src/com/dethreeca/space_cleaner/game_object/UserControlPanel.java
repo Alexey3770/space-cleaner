@@ -2,6 +2,7 @@ package com.dethreeca.space_cleaner.game_object;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.dethreeca.space_cleaner.model.User;
 import com.dethreeca.space_cleaner.utils.TextureManager;
 import com.dethreeca.space_cleaner.view_component.Button;
 import com.dethreeca.space_cleaner.view_component.TextView;
@@ -21,12 +22,6 @@ public class UserControlPanel {
     private float iceAttackSize;
     private float laserAttackSize;
     private float width, height;
-
-    // counting
-    private int countLaserAmmoGarbage;
-    private int countBucketGarbage;
-    private int countIceAmmoGarbage;
-    private int countFuelValue;
 
     private List<View> views;
 
@@ -54,16 +49,17 @@ public class UserControlPanel {
         this.listener = listener;
     }
 
+    public void update() {
+        laserAmmoTextView.setText(String.valueOf(User.getInstance().getCountLaserGun()));
+        bucketTextView.setText(String.valueOf(User.getInstance().getCountBucketGun()));
+        iceAmmoTextView.setText(String.valueOf(User.getInstance().getCountIceGun()));
+        fuelTextView.setText(String.valueOf(User.getInstance().getCountFuel()));
+    }
 
     private void initConstants() {
         textHeight = height * 0.05f;
         buttonSize = width * 0.1f;
         buttonMargin = height * 0.05f;
-
-        countBucketGarbage = 20;
-        countIceAmmoGarbage = 20;
-        countLaserAmmoGarbage = 20;
-        countFuelValue = 3;
     }
     
     private void initViewComponents() {
@@ -86,12 +82,10 @@ public class UserControlPanel {
         shootLaserBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick() {
-                System.out.print("CLick");
-                if(countLaserAmmoGarbage <= 0) {
+                if(User.getInstance().getCountLaserGun() <= 0) {
                     return;
                 }
-                countLaserAmmoGarbage--;
-                laserAmmoTextView.setText(String.valueOf(countLaserAmmoGarbage));
+                User.getInstance().removeLaserGun();
                 if (listener != null) {
                     listener.onAddLaser();
                 }
@@ -104,12 +98,10 @@ public class UserControlPanel {
         shootIceBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick() {
-                System.out.print("CLick");
-                if(countIceAmmoGarbage <= 0) {
+                if(User.getInstance().getCountIceGun() <= 0) {
                     return;
                 }
-                countIceAmmoGarbage--;
-                iceAmmoTextView.setText(String.valueOf(countIceAmmoGarbage));
+                User.getInstance().removeIceGun();
                 if (listener != null) {
                     listener.onAddIceAttack();
                 }
@@ -145,11 +137,6 @@ public class UserControlPanel {
         views.add(laserAmmoTextView);
         views.add(bucketTextView);
         views.add(fuelTextView);
-
-        laserAmmoTextView.setText(String.valueOf(countLaserAmmoGarbage));
-        bucketTextView.setText(String.valueOf(countBucketGarbage));
-        iceAmmoTextView.setText(String.valueOf(countIceAmmoGarbage));
-        fuelTextView.setText(String.valueOf(countFuelValue));
     }
 
     public interface UserControlPanelListener {

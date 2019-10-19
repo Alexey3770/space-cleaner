@@ -22,6 +22,8 @@ public class GameObjectMaker {
 
     private Ship ship;
 
+    private Earth earth;
+
     public GameObjectMaker(float width, float height, TextureManager textureManager) {
         this.height = height;
         this.width = width;
@@ -41,10 +43,11 @@ public class GameObjectMaker {
     }
 
     public GameObject createEarth() {
-        return new Earth(new Rectangle(0.9f * width,
+        earth = new Earth(new Rectangle(0.9f * width,
                 0,
                 height * 2, height * 2),
                 textureManager.getTexture(TextureManager.EARTH));
+        return earth;
     }
 
     public UserObject createLaserAttack() {
@@ -59,8 +62,8 @@ public class GameObjectMaker {
                 textureManager.getTexture(TextureManager.ICE_ATTACK));
     }
 
-    public void update(Camera camera, float earthAngle, float dt) {
-        SpaceObject gameObject = spaceObjectGenerator.generateSpaceObject(camera, earthAngle, dt);
+    public void update(Camera camera, float dt) {
+        SpaceObject gameObject = spaceObjectGenerator.generateSpaceObject(camera, earth.getAngle(), dt);
         if (objectGeneratedListener != null && gameObject != null) {
             objectGeneratedListener.onSpaceObjectGenerated(gameObject);
         }
