@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 public class Settings {
-
     private static String MY_PREFERENCES = "My Preferences";
     private static String SOUND_PREFERENCES_KEY = "SOUND_PREFERENCES_KEY";
     private static String COUNT_LITTLE_GARBAGE_PREFERENCES_KEY = "COUNT_LITTLE_GARBAGE_PREFERENCES_KEY";
