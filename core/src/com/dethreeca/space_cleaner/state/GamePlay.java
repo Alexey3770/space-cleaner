@@ -23,8 +23,7 @@ public class GamePlay extends State {
 
     @Override
     public void update(float dt) {
-        handleInput();
-        handleAccelerometer();
+        super.update(dt);
         camera.update();
     }
 
@@ -34,11 +33,11 @@ public class GamePlay extends State {
 
     @Override
     public void renderStatic(SpriteBatch staticBatch) {
-        staticBatch.begin();
-        staticBatch.end();
+        super.renderStatic(staticBatch);
     }
 
     @Override
     public void dispose() {
+        super.dispose();
     }
 }

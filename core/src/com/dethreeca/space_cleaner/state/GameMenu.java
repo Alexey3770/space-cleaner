@@ -17,13 +17,13 @@ public class GameMenu extends State {
     }
 
     @Override
-    public void update(float dt) {
-        handleInput();
+    public void handleAccelerometer() {
     }
 
     @Override
-    public void handleAccelerometer() {
-
+    public void update(float dt) {
+        super.update(dt);
+        camera.update();
     }
 
     @Override
@@ -32,9 +32,11 @@ public class GameMenu extends State {
 
     @Override
     public void renderStatic(SpriteBatch staticBatch) {
+        super.renderStatic(staticBatch);
     }
 
     @Override
     public void dispose() {
+        super.dispose();
     }
 }

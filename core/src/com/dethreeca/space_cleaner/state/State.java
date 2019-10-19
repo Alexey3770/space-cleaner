@@ -29,6 +29,8 @@ public abstract class State {
         for(View v: components) {
             v.update(dt);
         }
+        handleInput();
+        handleAccelerometer();
     }
 
     public abstract void handleAccelerometer();
