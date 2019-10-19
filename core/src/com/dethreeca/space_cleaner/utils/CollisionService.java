@@ -16,6 +16,11 @@ import static com.dethreeca.space_cleaner.game_object.space_object.Artifact.Type
 public class CollisionService {
 
     private CollisionServiceListener listener;
+    private PlaySoundManager soundManager;
+
+    public CollisionService() {
+        soundManager = new PlaySoundManager();
+    }
 
     public void checkCollision(List<UserObject> userObjects, List<SpaceObject> spaceObjects) {
         for (UserObject uo: userObjects) {
@@ -46,10 +51,12 @@ public class CollisionService {
             if (((Artifact) spaceObject).getTypeSpaceObject() == Medium) {
                 spaceObject.remove();
                 User.getInstance().removePlaceInBucket();
+                soundManager.playCleanGarbage();
             }
         } else {
             if (listener != null) {
                 listener.onGameOver();
+                soundManager.playCollisionSound();
             }
         }
     }

@@ -22,11 +22,11 @@ public class PlaySoundManager {
         laserAttackSound = Gdx.audio.newSound(Gdx.files.internal("laserAttackSound.mp3"));
         collisionSound = Gdx.audio.newSound(Gdx.files.internal("collisionSound.mp3"));
         moneySound = Gdx.audio.newSound(Gdx.files.internal("moneySound.mp3"));
-        cleanGarbage = Gdx.audio.newSound(Gdx.files.internal("cleanGarbage.mp3"));
+        cleanGarbage = Gdx.audio.newSound(Gdx.files.internal("cleanGabage.mp3"));
 
         // long sounds
-        bdMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-        bdMusic.setLooping(true);
+//        bdMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+//        bdMusicMusic.setLooping(true);
     }
 
     public void playMoneySound() {
@@ -42,11 +42,11 @@ public class PlaySoundManager {
     }
 
     public void playBgSound() {
-        if(isEnable()) {
-            bdMusic.play();
-        } else {
-            bdMusic.stop();
-        }
+//        if(isEnable()) {
+//            bdMusic.play();
+//        } else {
+//            bdMusic.stop();
+//        }
     }
 
     public void playClickSound(){
@@ -69,6 +69,7 @@ public class PlaySoundManager {
 
     public void playCollisionSound(){
         if(isEnable()) {
+
             collisionSound.play();
         }
     }

@@ -73,7 +73,7 @@ public class Settings {
     }
 
     public int getFuelValue() {
-        return prefs.getInteger(FUEL_VALUE_PREFERENCES_KEY, 0);
+        return prefs.getInteger(FUEL_VALUE_PREFERENCES_KEY, 20);
     }
 
     public void setFuelValue(int flueValue) {
@@ -113,7 +113,7 @@ public class Settings {
     }
 
     public int getCountBucketGun(){
-        return prefs.getInteger(BUCKET_GUN_PREFERENCES_KEY,MAX_BUCKET_SIZE);
+        return prefs.getInteger(BUCKET_GUN_PREFERENCES_KEY, 0);
     }
 
     public void setCountBucketGun(int obj){
