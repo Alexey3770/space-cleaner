@@ -25,7 +25,7 @@ public class SpaceCleaner extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
         WIDTH = Gdx.graphics.getWidth();
         HEIGTH = Gdx.graphics.getHeight();
-		gameStateManager.push(new GameMenu(gameStateManager));
+		gameStateManager.push(new GameSettings(gameStateManager));
 	}
 
 	@Override
