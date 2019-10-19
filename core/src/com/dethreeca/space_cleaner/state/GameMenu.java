@@ -7,24 +7,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.dethreeca.space_cleaner.SpaceCleaner;
+import com.dethreeca.space_cleaner.utils.PlaySoundManager;
+import com.dethreeca.space_cleaner.view_component.Button;
 
 public class GameMenu extends State {
-    SpriteBatch batch;
     Rectangle buttonRectangle;
     TextureRegion buttonTexture;
     Rectangle backGroundRectangle;
+    Rectangle startPlayGameRectangle;
+    Rectangle openSettingsGameGroundRectangle;
     TextureRegion backGroundTexture;
+    Button startPlayGameButton;
+    Button openSettingsGameButton;
+    PlaySoundManager playSoundManager;
 
-    public GameMenu(GameStateManager gsm){
+    public GameMenu(final GameStateManager gsm){
         super(gsm);
-        batch = new SpriteBatch();
-        buttonRectangle = new Rectangle();
-        buttonRectangle.width = SpaceCleaner.WIDTH %600;
-        buttonRectangle.height = SpaceCleaner.HEIGTH%600;
-        buttonRectangle.x = SpaceCleaner.WIDTH/2-buttonRectangle.width/2;
-        buttonRectangle.y = SpaceCleaner.HEIGTH/2-buttonRectangle.height/2;
-        buttonTexture = new TextureRegion(new Texture("MenuButton.png"));
 
+        // init bg
         backGroundRectangle = new Rectangle();
         backGroundRectangle.width = SpaceCleaner.WIDTH;
         backGroundRectangle.height = SpaceCleaner.HEIGTH;
@@ -32,25 +32,47 @@ public class GameMenu extends State {
         backGroundRectangle.y=0;
         backGroundTexture = new TextureRegion(new Texture("bg.png"));
 
+        // init play sounds
+        playSoundManager = new PlaySoundManager();
 
+        // init button start play
+        startPlayGameRectangle = new Rectangle();
+        startPlayGameRectangle.width = SpaceCleaner.WIDTH * 0.2f;
+        startPlayGameRectangle.height = SpaceCleaner.HEIGTH * 0.2f;
+        startPlayGameRectangle.x = SpaceCleaner.WIDTH / 2 - startPlayGameRectangle.width / 2;
+        startPlayGameRectangle.y = SpaceCleaner.HEIGTH / 2;
+        startPlayGameButton = new Button(new Texture("play.png"), startPlayGameRectangle);
+        startPlayGameButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick() {
+                playSoundManager.playClickSound();
+                gsm.push(new GamePlay(gsm));
+            }
+        });
+
+        // init button settings game
+        openSettingsGameGroundRectangle = new Rectangle();
+        openSettingsGameGroundRectangle.width = SpaceCleaner.WIDTH * 0.2f;
+        openSettingsGameGroundRectangle.height = SpaceCleaner.HEIGTH * 0.2f;
+        openSettingsGameGroundRectangle.x = SpaceCleaner.WIDTH / 2 - openSettingsGameGroundRectangle.width / 2;
+        openSettingsGameGroundRectangle.y = SpaceCleaner.HEIGTH / 2 - startPlayGameRectangle.width * 0.6f;
+        openSettingsGameButton = new Button(new Texture("settings.png"), openSettingsGameGroundRectangle);
+        openSettingsGameButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick() {
+                playSoundManager.playClickSound();
+                gsm.push(new GameSettings(gsm));
+            }
+        });
+
+        addView(openSettingsGameButton);
+        addView(startPlayGameButton);
     }
 
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){
 
-            gsm.set(new GamePlay(gsm));
-//            float pressMenuButton = buttonRectangle.height/3 ;
-//            if(Gdx.input.getY()>buttonRectangle.y && Gdx.input.getY()<buttonRectangle.y+pressMenuButton){
-//                gsm.push(new GamePlay(gsm));
-//            }
-//            if(Gdx.input.getY()>buttonRectangle.y+pressMenuButton && Gdx.input.getY()<buttonRectangle.y+2*pressMenuButton){
-//                gsm.push(new GamePlay(gsm));
-//            }
-//            if(Gdx.input.getY()>buttonRectangle.y+2*pressMenuButton && Gdx.input.getY()<buttonRectangle.y+3*pressMenuButton){
-//                gsm.push(new GamePlay(gsm));
-//            }
-//            gsm.set(new GamePlay(gsm));
         }
     }
 
@@ -67,8 +89,8 @@ public class GameMenu extends State {
     public void renderStatic(SpriteBatch sb) {
         sb.begin();
         sb.draw(backGroundTexture, backGroundRectangle.x,backGroundRectangle.y,backGroundRectangle.width,backGroundRectangle.height);
-        sb.draw(buttonTexture, buttonRectangle.x,buttonRectangle.y, 500, 500);
         sb.end();
+        super.renderStatic(sb);
     }
 
     @Override
