@@ -1,4 +1,4 @@
-package com.dethreeca.space_cleaner.game_object;
+package com.dethreeca.space_cleaner.game_object.user_object;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.dethreeca.space_cleaner.game_object.GameObject;
 
-public class Ship implements GameObject {
+public class Ship implements UserObject {
     //позиция корабля
     private Vector3 position;
 
@@ -84,5 +85,10 @@ public class Ship implements GameObject {
                 camera.viewportWidth) {
             position.x = camera.viewportWidth - boundsSheep.width;
         }
+    }
+
+    @Override
+    public Rectangle getBounds() {
+        return boundsSheep;
     }
 }
