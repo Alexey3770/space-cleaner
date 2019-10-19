@@ -23,14 +23,11 @@ public abstract class State {
 
     //обновляет картинку
     public void update(float dt) {
+        handleInput();
         for(View v: components) {
             v.update(dt);
         }
-        handleInput();
-        handleAccelerometer();
     }
-
-    public abstract void handleAccelerometer();
 
     //рисовние экрана
     //SpriteBatch - выставляет текстуру и координаты для фигур
@@ -39,9 +36,11 @@ public abstract class State {
     }
 
     public void renderStatic(SpriteBatch staticBatch) {
+        staticBatch.begin();
         for(View v: components) {
             v.render(staticBatch);
         }
+        staticBatch.end();
     }
 
     //для освобождения ресурсов
@@ -56,6 +55,10 @@ public abstract class State {
 
     protected void addView(View view) {
         components.add(view);
+    }
+
+    protected void addAllView(List<View> view) {
+        components.addAll(view);
     }
 
     public enum GameState

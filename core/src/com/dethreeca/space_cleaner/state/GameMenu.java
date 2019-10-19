@@ -53,10 +53,6 @@ public class GameMenu extends State {
     }
 
     @Override
-    public void handleAccelerometer() {
-    }
-
-    @Override
     public void update(float dt) {
         super.update(dt);
     }
