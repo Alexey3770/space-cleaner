@@ -3,6 +3,8 @@ package com.dethreeca.space_cleaner.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
+import static com.dethreeca.space_cleaner.model.User.MAX_BUCKET_SIZE;
+
 public class Settings {
     private static String MY_PREFERENCES = "My Preferences";
     private static String SOUND_PREFERENCES_KEY = "SOUND_PREFERENCES_KEY";
@@ -95,7 +97,7 @@ public class Settings {
     }
 
     public int getCountIceGun(){
-        return prefs.getInteger(ICE_GUN_PREFERENCES_KEY,0);
+        return prefs.getInteger(ICE_GUN_PREFERENCES_KEY,20);
     }
 
     public void setCountIceGun(int obj){
@@ -103,14 +105,14 @@ public class Settings {
     }
 
     public int getCountLaserGun(){
-        return prefs.getInteger(LASER_GUN_PREFERENCES_KEY,0);
+        return prefs.getInteger(LASER_GUN_PREFERENCES_KEY,20);
     }
 
     public void setCountLaserGun(int obj){
         prefs.putInteger(LASER_GUN_PREFERENCES_KEY, obj);
     }
     public int getCountBucketGun(){
-        return prefs.getInteger(BUCKET_GUN_PREFERENCES_KEY,0);
+        return prefs.getInteger(BUCKET_GUN_PREFERENCES_KEY,MAX_BUCKET_SIZE);
     }
 
     public void setCountBucketGun(int obj){

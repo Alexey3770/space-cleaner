@@ -22,7 +22,7 @@ public class User {
     private final int priseBigGarbage = 2;
     private final int priseMiddleGarbage = 1;
     private final int priseFuelValue = 15;
-    private final int MAX_BUCKET_SIZE = 20;
+    public static final int MAX_BUCKET_SIZE = 20;
     private final int priseGun = 10;
 
     public static User getInstance() {
