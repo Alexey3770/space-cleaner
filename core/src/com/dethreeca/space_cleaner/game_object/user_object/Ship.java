@@ -44,10 +44,6 @@ public class Ship implements UserObject {
         return position;
     }
 
-    public TextureRegion getSheep() {
-        return textureRegion;
-    }
-
     public Rectangle getBoundsSheep() {
         return boundsSheep;
     }
@@ -90,5 +86,15 @@ public class Ship implements UserObject {
     @Override
     public Rectangle getBounds() {
         return boundsSheep;
+    }
+
+    @Override
+    public void remove() {
+
+    }
+
+    @Override
+    public boolean canRemove() {
+        return false;
     }
 }

@@ -36,9 +36,11 @@ public abstract class State {
     }
 
     public void renderStatic(SpriteBatch staticBatch) {
+        staticBatch.begin();
         for(View v: components) {
             v.render(staticBatch);
         }
+        staticBatch.end();
     }
 
     //для освобождения ресурсов
@@ -53,6 +55,10 @@ public abstract class State {
 
     protected void addView(View view) {
         components.add(view);
+    }
+
+    protected void addAllView(List<View> view) {
+        components.addAll(view);
     }
 
     public enum GameState

@@ -4,6 +4,9 @@ import com.dethreeca.space_cleaner.game_object.space_object.Artifact;
 import com.dethreeca.space_cleaner.game_object.space_object.SpaceObject;
 import com.dethreeca.space_cleaner.game_object.user_object.Ship;
 import com.dethreeca.space_cleaner.game_object.user_object.UserObject;
+import com.dethreeca.space_cleaner.game_object.user_object.ammo.Ammo;
+import com.dethreeca.space_cleaner.game_object.user_object.ammo.IceAttack;
+import com.dethreeca.space_cleaner.game_object.user_object.ammo.LaserAttack;
 
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class CollisionService {
     private void collision(UserObject userObject, SpaceObject spaceObject) {
         if (userObject instanceof Ship) {
             collisionWithShip(spaceObject);
+        } else if(userObject instanceof Ammo) {
+            collisionWithAmmo((Ammo) userObject, spaceObject);
         }
     }
 
@@ -45,6 +50,24 @@ public class CollisionService {
                 listener.onGameOver();
             }
         }
+    }
+
+    private void collisionWithAmmo(Ammo ammo, SpaceObject spaceObject) {
+        if (spaceObject instanceof Artifact) {
+            switch (((Artifact) spaceObject).getTypeSpaceObject()) {
+                case Large:
+                    if(ammo instanceof IceAttack) {
+                        spaceObject.remove();
+                        break;
+                    }
+                case Min:
+                    if(ammo instanceof LaserAttack) {
+                        spaceObject.remove();
+                        break;
+                    }
+            }
+        }
+        ammo.startAnimation();
     }
 
     public interface CollisionServiceListener {

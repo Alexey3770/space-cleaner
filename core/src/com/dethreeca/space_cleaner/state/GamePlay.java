@@ -1,18 +1,24 @@
 package com.dethreeca.space_cleaner.state;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.dethreeca.space_cleaner.SpaceCleaner;
 import com.dethreeca.space_cleaner.game_object.GameObject;
+import com.dethreeca.space_cleaner.game_object.UserControlPanel;
 import com.dethreeca.space_cleaner.game_object.space_object.Artifact;
 import com.dethreeca.space_cleaner.game_object.space_object.SpaceObject;
 import com.dethreeca.space_cleaner.game_object.user_object.UserObject;
+import com.dethreeca.space_cleaner.game_object.user_object.ammo.Ammo;
+import com.dethreeca.space_cleaner.game_object.user_object.ammo.LaserAttack;
 import com.dethreeca.space_cleaner.utils.CollisionService;
 import com.dethreeca.space_cleaner.utils.GameObjectMaker;
+import com.dethreeca.space_cleaner.utils.TextureManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated, CollisionService.CollisionServiceListener {
+public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated,
+        CollisionService.CollisionServiceListener, UserControlPanel.UserControlPanelListener {
     private State.GameState stateGame = State.GameState.RUN;
 
     //game objects
@@ -23,15 +29,21 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
     private List<SpaceObject> spaceObjects;
 
     private GameObjectMaker gameObjectMaker;
+    private TextureManager textureManager;
     private CollisionService collisionService;
+    private UserControlPanel userControlPanel;
 
     public GamePlay(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, SpaceCleaner.WIDTH / 2,
                 SpaceCleaner.HEIGTH / 2);
         stateGame = GameState.RUN;
+        textureManager = new TextureManager();
         collisionService = new CollisionService();
         collisionService.setListener(this);
+        userControlPanel = new UserControlPanel(SpaceCleaner.WIDTH, SpaceCleaner.HEIGTH, textureManager);
+        addAllView(userControlPanel.getViews());
+        userControlPanel.setListener(this);
         initGameObjects();
     }
 
@@ -109,7 +121,8 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
     }
 
     private void initGameObjects() {
-        this.gameObjectMaker = new GameObjectMaker(camera.viewportWidth, camera.viewportHeight);
+        this.gameObjectMaker = new GameObjectMaker(camera.viewportWidth, camera.viewportHeight,
+                textureManager);
         this.gameObjectMaker.setObjectGeneratedListener(this);
 
         this.gameObjects = new ArrayList<>();
@@ -129,5 +142,21 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
                 i--;
             }
         }
+        for (int i = 0; i < userObjects.size(); i++) {
+            if (userObjects.get(i).canRemove()) {
+                userObjects.remove(i);
+                i--;
+            }
+        }
+    }
+
+    @Override
+    public void onAddIceAttack() {
+        userObjects.add(gameObjectMaker.createIceAttack());
+    }
+
+    @Override
+    public void onAddLaser() {
+        userObjects.add(gameObjectMaker.createLaserAttack());
     }
 }

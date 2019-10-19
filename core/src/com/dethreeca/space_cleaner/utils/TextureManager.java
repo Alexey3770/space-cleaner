@@ -31,6 +31,17 @@ public class TextureManager {
 
     public static final String EARTH = "earth";
 
+    public static final String ICE_ATTACK = "ice_attack";
+    public static final String LASER_ATTACK = "laser_attack";
+
+    public static final String BTN_SHOOT_LASER_TEXTURE = "btn_shoot_laser_texture";
+    public static final String BTN_SHOOT_ICE_TEXTURE = "btn_shoot_ice_texture";
+
+    public static final String TXV_SHOOT_LASER_TEXTURE = "txv_shoot_laser_texture";
+    public static final String TXV_SHOOT_ICE_TEXTURE = "txv_shoot_ice_texture";
+    public static final String TXV_SHOOT_BUCKET_TEXTURE = "txv_shoot_bucket_texture";
+    public static final String TXV_SHOOT_FUEL_TEXTURE = "txv_shoot_fuel_texture";
+
     private Map<String, Texture> textures;
 
     public TextureManager() {
@@ -60,6 +71,15 @@ public class TextureManager {
         textures.put(STATION, new Texture("station.png"));
 
         textures.put(EARTH, new Texture("earth.png"));
+
+        textures.put(BTN_SHOOT_LASER_TEXTURE, new Texture("lazer_button.png"));
+        textures.put(BTN_SHOOT_ICE_TEXTURE, new Texture("fire_button.png"));
+        textures.put(TXV_SHOOT_ICE_TEXTURE, new Texture("water.png"));
+        textures.put(TXV_SHOOT_LASER_TEXTURE, new Texture("lazer.png"));
+        textures.put(TXV_SHOOT_BUCKET_TEXTURE, new Texture("trash.png"));
+        textures.put(TXV_SHOOT_FUEL_TEXTURE, new Texture("toplivo.png"));
+        textures.put(ICE_ATTACK, new Texture("push_water.png"));
+        textures.put(LASER_ATTACK, new Texture("laser_attack.png"));
     }
 
     public Texture getTexture(String textureName) {

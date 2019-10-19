@@ -6,4 +6,8 @@ import com.dethreeca.space_cleaner.game_object.GameObject;
 public interface UserObject extends GameObject {
 
     Rectangle getBounds();
+
+    void remove();
+
+    boolean canRemove();
 }
