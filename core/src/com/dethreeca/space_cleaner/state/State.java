@@ -23,14 +23,11 @@ public abstract class State {
 
     //обновляет картинку
     public void update(float dt) {
+        handleInput();
         for(View v: components) {
             v.update(dt);
         }
-        handleInput();
-        handleAccelerometer();
     }
-
-    public abstract void handleAccelerometer();
 
     //рисовние экрана
     //SpriteBatch - выставляет текстуру и координаты для фигур

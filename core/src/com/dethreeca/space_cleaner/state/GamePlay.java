@@ -27,10 +27,6 @@ public class GamePlay extends State {
     }
 
     @Override
-    public void handleAccelerometer() {
-    }
-
-    @Override
     public void update(float dt) {
         super.update(dt);
         switch (stateGame) {
@@ -60,6 +56,7 @@ public class GamePlay extends State {
     @Override
     public void dispose() {
         super.dispose();
+        gameObjectMaker.dispose();
     }
 
     private void updateRunState(float dt) {
@@ -72,5 +69,6 @@ public class GamePlay extends State {
         this.gameObjectMaker = new GameObjectMaker(camera.viewportWidth, camera.viewportHeight);
         this.gameObjects = new ArrayList<>();
         this.gameObjects.add(gameObjectMaker.createBackground());
+        this.gameObjects.add(gameObjectMaker.createShip());
     }
 }
