@@ -111,6 +111,7 @@ public class Settings {
     public void setCountLaserGun(int obj){
         prefs.putInteger(LASER_GUN_PREFERENCES_KEY, obj);
     }
+
     public int getCountBucketGun(){
         return prefs.getInteger(BUCKET_GUN_PREFERENCES_KEY,MAX_BUCKET_SIZE);
     }
