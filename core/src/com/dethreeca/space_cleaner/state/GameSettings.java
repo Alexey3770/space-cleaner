@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.dethreeca.space_cleaner.SpaceCleaner;
+import com.dethreeca.space_cleaner.view_component.Button;
 import com.dethreeca.space_cleaner.view_component.TextView;
 
 public class  GameSettings extends State {
@@ -19,8 +20,8 @@ public class  GameSettings extends State {
     TextureRegion backGroundTexture;
     Rectangle checkRectangle;
     TextureRegion checkTexture;
-    Rectangle crossRectangle;
-    TextureRegion crossTexture;
+    Rectangle backMenuRectangle;
+    TextureRegion backMenuTexture;
     TextView textView;
     BitmapFont font;
 
@@ -40,6 +41,13 @@ public class  GameSettings extends State {
         backGroundRectangle.x=0;
         backGroundRectangle.y=0;
         backGroundTexture = new TextureRegion(new Texture("bg.png"));
+
+        backMenuRectangle = new Rectangle();
+        backMenuRectangle.width = SpaceCleaner.WIDTH * 0.12f;
+        backMenuRectangle.height = SpaceCleaner.HEIGTH * 0.12f;
+        backMenuRectangle.x = SpaceCleaner.WIDTH / 2 - backMenuRectangle.width / 2;
+        backMenuRectangle.y = SpaceCleaner.HEIGTH / 10;
+        backMenuTexture = new TextureRegion(new Texture("backMenu.png"));
 
         font = new BitmapFont();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -76,6 +84,7 @@ public class  GameSettings extends State {
         sb.begin();
         sb.draw(backGroundTexture, backGroundRectangle.x,backGroundRectangle.y,backGroundRectangle.width,backGroundRectangle.height);
         sb.draw(checkTexture,checkRectangle.x,checkRectangle.y,checkRectangle.width,checkRectangle.height);
+        sb.draw(backMenuTexture,backMenuRectangle.x,backMenuRectangle.y,backMenuRectangle.width,backMenuRectangle.height);
         font.draw(sb, glyphLayout,SpaceCleaner.WIDTH * 0.05f , checkRectangle.y + checkRectangle.height/1.5f);
         sb.end();
     }
