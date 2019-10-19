@@ -29,6 +29,8 @@ public class TextureManager {
     public static final String ARTIFACT_LARGE3 = "artifact_large3";
     public static final String STATION = "station";
 
+    public static final String EARTH = "earth";
+
     private Map<String, Texture> textures;
 
     public TextureManager() {
@@ -56,6 +58,8 @@ public class TextureManager {
         textures.put(ARTIFACT_LARGE3, new Texture("garbage8.png"));
 
         textures.put(STATION, new Texture("station.png"));
+
+        textures.put(EARTH, new Texture("earth.png"));
     }
 
     public Texture getTexture(String textureName) {

@@ -89,6 +89,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         this.spaceObjects = new ArrayList<>();
         this.gameObjects.add(gameObjectMaker.createBackground());
         this.gameObjects.add(gameObjectMaker.createShip());
+        this.gameObjects.add(gameObjectMaker.createEarth());
     }
 
     private void cleanSpaceObject() {

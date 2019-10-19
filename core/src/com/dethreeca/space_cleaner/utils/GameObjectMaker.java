@@ -1,8 +1,10 @@
 package com.dethreeca.space_cleaner.utils;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.dethreeca.space_cleaner.game_object.Background;
+import com.dethreeca.space_cleaner.game_object.Earth;
 import com.dethreeca.space_cleaner.game_object.GameObject;
 import com.dethreeca.space_cleaner.game_object.Ship;
 import com.dethreeca.space_cleaner.game_object.space_object.SpaceObject;
@@ -30,6 +32,13 @@ public class GameObjectMaker {
     public GameObject createShip() {
         return new Ship(width / 2, height, width * 0.09f, width * 0.09f,
                 textureManager.getTexture(TextureManager.SHIP), height * 0.4f);
+    }
+
+    public GameObject createEarth() {
+        return new Earth(new Rectangle(0.9f * width,
+                0,
+                height * 2, height * 2),
+                textureManager.getTexture(TextureManager.EARTH));
     }
 
     public void update(Camera camera, float earthAngle, float dt) {
