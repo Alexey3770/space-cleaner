@@ -21,10 +21,7 @@ public class StationShopPanel implements View {
     Button buyFuel;
     Button buyLaser;
     Button buyIce;
-    Rectangle buyIceRectangle;
-    Rectangle buyLaserRectangle;
-    Rectangle buyFuelRectangle;
-    Rectangle saleGarbageRectangle;
+    Button back;
     PlaySoundManager playSoundManager;
     private TextureManager textureManager;
 
@@ -43,6 +40,7 @@ public class StationShopPanel implements View {
        initIceBuy();
        initLaserBuy();
        initSaleGarbage();
+       initContinue();
     }
 
     @Override
@@ -72,20 +70,17 @@ public class StationShopPanel implements View {
 
     private void initIceBuy() {
         float size = SpaceCleaner.WIDTH * SIZE_BUTTON;
-        buyIceRectangle = new Rectangle(SpaceCleaner.WIDTH / 5f - size / 2,
+        Rectangle buyIceRectangle = new Rectangle(SpaceCleaner.WIDTH / 5f - size / 2,
                 SpaceCleaner.HEIGTH / 2f - size / 2f,
                 size,
                 size);
-//        buyIceRectangle.width = ;
-//        buyIceRectangle.height = ;
-//        buyIceRectangle.x = ;
-//        buyIceRectangle.y = ;
         buyIce = new Button(textureManager.getTexture(TextureManager.BTN_BUY_ICE), buyIceRectangle);
         buyIce.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick() {
-                playSoundManager.playMoneySound();
-                User.getInstance().exchangeMoneyToIceGun();
+                if (User.getInstance().exchangeMoneyToIceGun()) {
+                    playSoundManager.playMoneySound();
+                }
             }
         });
         views.add(buyIce);
@@ -93,7 +88,7 @@ public class StationShopPanel implements View {
 
     private void initLaserBuy() {
         float size = SpaceCleaner.WIDTH * SIZE_BUTTON;
-        buyLaserRectangle = new Rectangle();
+        Rectangle buyLaserRectangle = new Rectangle();
         buyLaserRectangle.width = size;
         buyLaserRectangle.height = size;
         buyLaserRectangle.x = SpaceCleaner.WIDTH * 2 / 5f - size / 2;
@@ -102,8 +97,9 @@ public class StationShopPanel implements View {
         buyLaser.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick() {
-                playSoundManager.playMoneySound();
-                User.getInstance().exchangeMoneyToLaserGun();
+                if (User.getInstance().exchangeMoneyToLaserGun()) {
+                    playSoundManager.playMoneySound();
+                }
             }
         });
         views.add(buyLaser);
@@ -111,7 +107,7 @@ public class StationShopPanel implements View {
 
     private void initFuelBuy() {
         float size = SpaceCleaner.WIDTH * SIZE_BUTTON;
-        buyFuelRectangle = new Rectangle();
+        Rectangle buyFuelRectangle = new Rectangle();
         buyFuelRectangle.width = size;
         buyFuelRectangle.height = size;
         buyFuelRectangle.x = SpaceCleaner.WIDTH  * 3 / 5f - size / 2;
@@ -120,8 +116,9 @@ public class StationShopPanel implements View {
         buyFuel.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick() {
-                playSoundManager.playMoneySound();
-                User.getInstance().exchangeMoneyToFuel();
+                if (User.getInstance().exchangeMoneyToFuel()) {
+                    playSoundManager.playMoneySound();
+                }
             }
         });
         views.add(buyFuel);
@@ -129,7 +126,7 @@ public class StationShopPanel implements View {
 
     private void initSaleGarbage() {
         float size = SpaceCleaner.WIDTH * SIZE_BUTTON;
-        saleGarbageRectangle = new Rectangle();
+        Rectangle saleGarbageRectangle = new Rectangle();
         saleGarbageRectangle.width = size;
         saleGarbageRectangle.height = size;
         saleGarbageRectangle.x = SpaceCleaner.WIDTH  * 4 / 5f - size / 2;
@@ -138,11 +135,31 @@ public class StationShopPanel implements View {
         saleGarbage.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick() {
-                playSoundManager.playMoneySound();
-                User.getInstance().exchangeGarbageToMoney();
+                if (User.getInstance().exchangeGarbageToMoney()) {
+                    playSoundManager.playMoneySound();
+                }
             }
         });
         views.add(saleGarbage);
+    }
+
+    private void initContinue() {
+        float size = SpaceCleaner.WIDTH * SIZE_BUTTON / 2;
+        Rectangle backRectangle = new Rectangle();
+        backRectangle.width = size;
+        backRectangle.height = size;
+        backRectangle.x = SpaceCleaner.WIDTH  / 2f - size / 2;
+        backRectangle.y = SpaceCleaner.HEIGTH / 4f - size / 2;
+        back = new Button(textureManager.getTexture(TextureManager.BTN_BACK), backRectangle);
+        back.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick() {
+                if (onResumeListener != null) {
+                    onResumeListener.onResume();
+                }
+            }
+        });
+        views.add(back);
     }
 
     public interface OnResume {

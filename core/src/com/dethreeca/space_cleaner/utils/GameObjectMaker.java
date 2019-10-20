@@ -71,8 +71,11 @@ public class GameObjectMaker {
         }
     }
 
+    public void resetShipPosition() {
+        ship.getPosition().x = width / 2;
+    }
+
     public void dispose() {
-        textureManager.dispose();
     }
 
     public void setObjectGeneratedListener(OnObjectGenerated objectGeneratedListener) {

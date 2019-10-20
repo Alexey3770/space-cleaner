@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dethreeca.space_cleaner.state.GameMenu;
 import com.dethreeca.space_cleaner.state.GameSettings;
 import com.dethreeca.space_cleaner.state.GameStateManager;
+import com.dethreeca.space_cleaner.utils.Settings;
+import com.dethreeca.space_cleaner.utils.TextureManager;
 
 public class SpaceCleaner extends ApplicationAdapter {
 
@@ -41,5 +43,6 @@ public class SpaceCleaner extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		TextureManager.getInstance().dispose();
 	}
 }

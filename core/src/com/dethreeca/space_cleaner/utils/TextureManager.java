@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TextureManager {
+    private static TextureManager instance;
+
     public static final String BACKGROUND = "background";
     public static final String SHIP = "ship";
 
@@ -47,9 +49,11 @@ public class TextureManager {
     public static final String BTN_BUY_FUEL = "btn_buy_fuel";
     public static final String BTN_SALE_GARBAGE = "btn_sale_garbage";
 
+    public static final String BTN_BACK = "btn_back";
+
     private Map<String, Texture> textures;
 
-    public TextureManager() {
+    private TextureManager() {
         textures = new HashMap<>();
         textures.put(BACKGROUND, new Texture("bg.png"));
         textures.put(SHIP, new Texture("ship.png"));
@@ -90,6 +94,8 @@ public class TextureManager {
         textures.put(BTN_BUY_LASER, new Texture("buy_laser.png"));
         textures.put(BTN_BUY_FUEL, new Texture("buy_fuel.png"));
         textures.put(BTN_SALE_GARBAGE, new Texture("buy_coin.png"));
+
+        textures.put(BTN_BACK, new Texture("back.png"));
     }
 
     public Texture getTexture(String textureName) {
@@ -100,5 +106,9 @@ public class TextureManager {
         for(Texture texture: textures.values()) {
             texture.dispose();
         }
+    }
+
+    public static TextureManager getInstance() {
+        return new TextureManager();
     }
 }

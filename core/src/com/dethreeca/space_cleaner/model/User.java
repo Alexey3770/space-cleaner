@@ -43,6 +43,7 @@ public class User {
             level++;
             Settings.getInstance().setLevel(level);
             Settings.getInstance().setTargetLength(targetPath);
+            Settings.getInstance().save();
         }
     }
 
@@ -102,47 +103,55 @@ public class User {
         return countCountBucketGun;
     }
 
-    public int exchangeGarbageToMoney() {
+    public boolean exchangeGarbageToMoney() {
+        if (countBigGarbage + countMiddleGarbage + countLittleGarbage == 0) {
+            return false;
+        }
         int mon = countBigGarbage * priseBigGarbage + countLittleGarbage * priseLittleGarbage + countMiddleGarbage * priseMiddleGarbage;
         money += mon;
         countMiddleGarbage = 0;
         countLittleGarbage = 0;
         countBigGarbage = 0;
+        countCountBucketGun = 0;
         Settings.getInstance().setCountBigGarbage(countBigGarbage);
         Settings.getInstance().setCountLittleGarbage(countLittleGarbage);
         Settings.getInstance().setCountMiddleGarbage(countMiddleGarbage);
         Settings.getInstance().setMoney(money);
-        return mon;
+        money += mon;
+        return true;
     }
 
-    public int exchangeMoneyToFuel() {
+    public boolean exchangeMoneyToFuel() {
         if (money >= priseFuelValue) {
             fuelValue++;
             money -= priseFuelValue;
             Settings.getInstance().setMoney(money);
             Settings.getInstance().setFuelValue(fuelValue);
+            return true;
         }
-        return fuelValue;
+        return false;
     }
 
-    public int exchangeMoneyToIceGun() {
+    public boolean exchangeMoneyToIceGun() {
         if (money >= priseGun) {
             countCountIceGun++;
             money -= priseGun;
             Settings.getInstance().setMoney(money);
             Settings.getInstance().setCountIceGun(countCountIceGun);
+            return true;
         }
-        return countCountIceGun;
+        return false;
     }
 
-    public int exchangeMoneyToLaserGun() {
+    public boolean exchangeMoneyToLaserGun() {
         if (money >= priseGun) {
             countCountLaserGun++;
             money -= priseGun;
             Settings.getInstance().setMoney(money);
             Settings.getInstance().setCountLaserGun(countCountLaserGun);
+            return true;
         }
-        return countCountLaserGun;
+        return false;
     }
 
     public void removeIceGun() {
@@ -162,8 +171,17 @@ public class User {
     public void removePlaceInBucket() {
         if (countCountBucketGun < MAX_BUCKET_SIZE) {
             countCountBucketGun++;
+            countMiddleGarbage++;
             Settings.getInstance().setCountBucketGun(countCountBucketGun);
         }
+    }
+
+    public void addLittleGarbage() {
+        countLittleGarbage++;
+    }
+
+    public void addBigGarbage() {
+        countBigGarbage++;
     }
 
     public void removeFuel() {

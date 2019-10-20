@@ -11,6 +11,7 @@ import com.dethreeca.space_cleaner.model.User;
 import com.dethreeca.space_cleaner.utils.CollisionService;
 import com.dethreeca.space_cleaner.utils.GameObjectMaker;
 import com.dethreeca.space_cleaner.utils.PlaySoundManager;
+import com.dethreeca.space_cleaner.utils.Settings;
 import com.dethreeca.space_cleaner.utils.TextureManager;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         camera.setToOrtho(false, SpaceCleaner.WIDTH / 2,
                 SpaceCleaner.HEIGTH / 2);
         stateGame = GameState.RUN;
-        textureManager = new TextureManager();
+        textureManager = TextureManager.getInstance();
         collisionService = new CollisionService();
         collisionService.setListener(this);
         userControlPanel = new UserControlPanel(SpaceCleaner.WIDTH, SpaceCleaner.HEIGTH, textureManager);
@@ -109,6 +110,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         stationShopPanel = new StationShopPanel(textureManager);
         stationShopPanel.setOnResumeListener(this);
         addView(stationShopPanel);
+        Settings.getInstance().save();
     }
 
     @Override
@@ -126,6 +128,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
     @Override
     public void onResume() {
         removeView(stationShopPanel);
+        gameObjectMaker.resetShipPosition();
         stationShopPanel = null;
         stateGame = GameState.RUN;
     }

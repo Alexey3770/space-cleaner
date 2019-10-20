@@ -71,12 +71,14 @@ public class CollisionService {
                 case Large:
                     if(ammo instanceof IceAttack) {
                         spaceObject.remove();
+                        User.getInstance().addBigGarbage();
                         soundManager.playCleanGarbage();
                     }
                     break;
                 case Min:
                     if(ammo instanceof LaserAttack) {
                         spaceObject.remove();
+                        User.getInstance().addLittleGarbage();
                         soundManager.playCleanGarbage();
                     }
                     break;
