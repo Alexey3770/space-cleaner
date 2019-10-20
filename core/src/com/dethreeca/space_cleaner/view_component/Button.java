@@ -29,6 +29,10 @@ public class Button implements View {
         }
     }
 
+    public void setTexture(Texture texture) {
+        this.textureRegion = new TextureRegion(texture);
+    }
+
     @Override
     public void render(SpriteBatch sb) {
         sb.draw(textureRegion, bounds.x, bounds.y, bounds.width, bounds.height);
