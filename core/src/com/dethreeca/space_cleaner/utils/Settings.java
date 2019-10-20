@@ -119,4 +119,8 @@ public class Settings {
     public void setCountBucketGun(int obj){
         prefs.putInteger(BUCKET_GUN_PREFERENCES_KEY, obj);
     }
+
+    public void save() {
+        prefs.flush();
+    }
 }

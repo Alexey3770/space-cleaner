@@ -14,14 +14,10 @@ import java.util.List;
 
 public class UserControlPanel implements View{
     //Constants
-    private float bottomMargin;
-    private float movementDelta;
-    private float textLeftMargin;
+    private float textMargin;
     private float textHeight;
     private float buttonSize;
     private float buttonMargin;
-    private float iceAttackSize;
-    private float laserAttackSize;
     private float width, height;
 
     private List<View> views;
@@ -53,8 +49,9 @@ public class UserControlPanel implements View{
         iceAmmoTextView.setText(String.valueOf(User.getInstance().getCountIceGun()));
         fuelTextView.setText(String.valueOf(User.getInstance().getCountFuel()));
         moneyTextView.setText(String.valueOf(User.getInstance().getCountMoney()));
-        scoreTextView.setText("Current path: " + User.getInstance().getCurrentPath() + "\n" +
-                "Current level: " + User.getInstance().getCurrentLevel());
+        scoreTextView.setText(String.format("Current path: %.2f\nCurrent level: %d",
+                User.getInstance().getCurrentPath(),
+                User.getInstance().getCurrentLevel()));
         for (View v: views) {
             v.update(dt);
         }
@@ -78,6 +75,7 @@ public class UserControlPanel implements View{
         textHeight = height * 0.05f;
         buttonSize = width * 0.1f;
         buttonMargin = height * 0.05f;
+        textMargin = width * 0.02f;
     }
     
     private void initViewComponents() {
@@ -87,7 +85,7 @@ public class UserControlPanel implements View{
     }
 
     private void initScoreTextView() {
-        scoreTextView = new TextView(new Vector2(textLeftMargin, height - textHeight));
+        scoreTextView = new TextView(new Vector2(textMargin, height - textMargin));
         scoreTextView.setTextHeight(textHeight);
         views.add(scoreTextView);
     }
@@ -131,28 +129,28 @@ public class UserControlPanel implements View{
 
 
     private void initPanel() {
-        float x = width - textLeftMargin - textHeight * 2;
-        float y = height - 2 * textLeftMargin;
+        float x = width - textMargin - textHeight * 2;
+        float y = height - textMargin;
         iceAmmoTextView = new TextView(new Vector2(x, y));
         iceAmmoTextView.setTextHeight(textHeight);
         iceAmmoTextView.setIcon(textureManager.getTexture(TextureManager.TXV_SHOOT_ICE_TEXTURE));
 
-        x -= textLeftMargin + textHeight * 2;
+        x -= textHeight * 2;
         laserAmmoTextView = new TextView(new Vector2(x, y));
         laserAmmoTextView.setTextHeight(textHeight);
         laserAmmoTextView.setIcon(textureManager.getTexture(TextureManager.TXV_SHOOT_LASER_TEXTURE));
 
-        x -= textLeftMargin + textHeight * 2;
+        x -= textHeight * 2;
         bucketTextView = new TextView(new Vector2(x, y));
         bucketTextView.setTextHeight(textHeight);
         bucketTextView.setIcon(textureManager.getTexture(TextureManager.TXV_SHOOT_BUCKET_TEXTURE));
 
-        x -= textLeftMargin + textHeight * 2;
+        x -= textHeight * 2;
         fuelTextView = new TextView(new Vector2(x, y));
         fuelTextView.setTextHeight(textHeight);
         fuelTextView.setIcon(textureManager.getTexture(TextureManager.TXV_SHOOT_FUEL_TEXTURE));
 
-        x -= textLeftMargin + textHeight * 2;
+        x -= textHeight * 2;
         moneyTextView = new TextView(new Vector2(x, y));
         moneyTextView.setTextHeight(textHeight);
         moneyTextView.setIcon(textureManager.getTexture(TextureManager.BTN_SALE_GARBAGE));

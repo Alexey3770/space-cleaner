@@ -1,6 +1,7 @@
 package com.dethreeca.space_cleaner.state;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dethreeca.space_cleaner.utils.Settings;
 
 import java.util.Stack;
 
@@ -27,6 +28,7 @@ public class GameStateManager {
     public void set(State state){
         states.pop().dispose();
         states.push(state);
+        Settings.getInstance().save();
     }
 
     public void update(float dt){
