@@ -7,15 +7,20 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.dethreeca.space_cleaner.SpaceCleaner;
 import com.dethreeca.space_cleaner.utils.PlaySoundManager;
+import com.dethreeca.space_cleaner.view_component.Button;
 
 public class GameOver extends State {
     Rectangle backGroundRectangle;
     TextureRegion backGroundTexture;
     PlaySoundManager playSoundManager;
     Rectangle gameOverRectangle;
+    Rectangle playAgainRectangle;
+    Rectangle backMenuRectangle;
     TextureRegion gameOverTextureRegion;
+    Button playAgain;
+    Button backMenu;
 
-    public GameOver(GameStateManager gsm) {
+    public GameOver(final GameStateManager gsm) {
         super(gsm);
 
         // init bg
@@ -35,8 +40,40 @@ public class GameOver extends State {
         gameOverTextureRegion = new TextureRegion(new Texture("gameover.png"));
 
         // init play sounds
-//        playSoundManager = new PlaySoundManager();
-//        playSoundManager.playCollisionSound();
+        playSoundManager = new PlaySoundManager();
+        playSoundManager.playCollisionSound();
+
+        // init buttons
+        playAgainRectangle = new Rectangle();
+        playAgainRectangle.width = SpaceCleaner.WIDTH * 0.06f;
+        playAgainRectangle.height = playAgainRectangle.width;
+        playAgainRectangle.x = SpaceCleaner.WIDTH / 2 + playAgainRectangle.width;
+        playAgainRectangle.y = SpaceCleaner.HEIGTH / 2  - gameOverRectangle.height / 2;
+        playAgain = new Button(new Texture("back.png"), playAgainRectangle);
+        playAgain.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick() {
+                playSoundManager.playClickSound();
+                gsm.push(new GamePlay(gsm));
+            }
+        });
+
+        backMenuRectangle = new Rectangle();
+        backMenuRectangle.width = SpaceCleaner.WIDTH * 0.06f;
+        backMenuRectangle.height = backMenuRectangle.width;
+        backMenuRectangle.x = SpaceCleaner.WIDTH / 2 - backMenuRectangle.width * 1.5f;
+        backMenuRectangle.y = SpaceCleaner.HEIGTH / 2 - gameOverRectangle.height / 2;
+        backMenu = new Button(new Texture("cancel.png"), backMenuRectangle);
+        backMenu.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick() {
+                playSoundManager.playClickSound();
+                gsm.push(new GameMenu(gsm));
+            }
+        });
+        addView(playAgain);
+        addView(backMenu);
+
     }
 
     @Override
@@ -58,11 +95,11 @@ public class GameOver extends State {
 
     @Override
     public void renderStatic(SpriteBatch sb) {
-        super.renderStatic(sb);
         sb.begin();
         sb.draw(backGroundTexture, backGroundRectangle.x, backGroundRectangle.y, backGroundRectangle.width, backGroundRectangle.height);
         sb.draw(gameOverTextureRegion, gameOverRectangle.x, gameOverRectangle.y, gameOverRectangle.width, gameOverRectangle.height);
         sb.end();
+        super.renderStatic(sb);
     }
 
     @Override
