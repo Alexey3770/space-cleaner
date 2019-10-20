@@ -153,7 +153,7 @@ public class UserControlPanel implements View{
         x -= textHeight * 2;
         moneyTextView = new TextView(new Vector2(x, y));
         moneyTextView.setTextHeight(textHeight);
-        moneyTextView.setIcon(textureManager.getTexture(TextureManager.BTN_SALE_GARBAGE));
+        moneyTextView.setIcon(textureManager.getTexture(TextureManager.COIN_STAT));
         views.add(iceAmmoTextView);
         views.add(laserAmmoTextView);
         views.add(bucketTextView);

@@ -49,6 +49,8 @@ public class TextureManager {
     public static final String BTN_BUY_FUEL = "btn_buy_fuel";
     public static final String BTN_SALE_GARBAGE = "btn_sale_garbage";
 
+    public static final String COIN_STAT = "coin_stat";
+
     public static final String BTN_BACK = "btn_back";
 
     private Map<String, Texture> textures;
@@ -96,6 +98,8 @@ public class TextureManager {
         textures.put(BTN_SALE_GARBAGE, new Texture("buy_coin.png"));
 
         textures.put(BTN_BACK, new Texture("back.png"));
+
+        textures.put(COIN_STAT, new Texture("coin_stat.png"));
     }
 
     public Texture getTexture(String textureName) {
