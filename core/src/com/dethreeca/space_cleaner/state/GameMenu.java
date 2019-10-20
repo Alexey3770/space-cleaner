@@ -20,6 +20,8 @@ public class GameMenu extends State {
     Button startPlayGameButton;
     Button openSettingsGameButton;
     PlaySoundManager playSoundManager;
+    Rectangle titleRectangle;
+    TextureRegion titleTexture;
 
     public GameMenu(final GameStateManager gsm){
         super(gsm);
@@ -32,12 +34,20 @@ public class GameMenu extends State {
         backGroundRectangle.y=0;
         backGroundTexture = new TextureRegion(new Texture("bg.png"));
 
+        // init title
+        titleRectangle = new Rectangle();
+        titleRectangle.width = SpaceCleaner.WIDTH * 0.2f;
+        titleRectangle.height = SpaceCleaner.HEIGTH * 0.06f;
+        titleRectangle.x =  SpaceCleaner.WIDTH * 0.01f;
+        titleRectangle.y = SpaceCleaner.HEIGTH - titleRectangle.height;
+        titleTexture = new TextureRegion(new Texture("title.png"));
+
         // init play sounds
         playSoundManager = new PlaySoundManager();
 
         // init button start play
         startPlayGameRectangle = new Rectangle();
-        startPlayGameRectangle.width = SpaceCleaner.WIDTH * 0.2f;
+        startPlayGameRectangle.width = SpaceCleaner.WIDTH * 0.3f;
         startPlayGameRectangle.height = SpaceCleaner.HEIGTH * 0.2f;
         startPlayGameRectangle.x = SpaceCleaner.WIDTH / 2 - startPlayGameRectangle.width / 2;
         startPlayGameRectangle.y = SpaceCleaner.HEIGTH / 2;
@@ -52,7 +62,7 @@ public class GameMenu extends State {
 
         // init button settings game
         openSettingsGameGroundRectangle = new Rectangle();
-        openSettingsGameGroundRectangle.width = SpaceCleaner.WIDTH * 0.2f;
+        openSettingsGameGroundRectangle.width = SpaceCleaner.WIDTH * 0.3f;
         openSettingsGameGroundRectangle.height = SpaceCleaner.HEIGTH * 0.2f;
         openSettingsGameGroundRectangle.x = SpaceCleaner.WIDTH / 2 - openSettingsGameGroundRectangle.width / 2;
         openSettingsGameGroundRectangle.y = SpaceCleaner.HEIGTH / 2 - startPlayGameRectangle.width * 0.6f;
@@ -88,7 +98,8 @@ public class GameMenu extends State {
     @Override
     public void renderStatic(SpriteBatch sb) {
         sb.begin();
-        sb.draw(backGroundTexture, backGroundRectangle.x,backGroundRectangle.y,backGroundRectangle.width,backGroundRectangle.height);
+        sb.draw(backGroundTexture, backGroundRectangle.x, backGroundRectangle.y, backGroundRectangle.width, backGroundRectangle.height);
+//        sb.draw(titleTexture, titleRectangle.x, titleRectangle.y, titleRectangle.width, titleRectangle.height);
         sb.end();
         super.renderStatic(sb);
     }

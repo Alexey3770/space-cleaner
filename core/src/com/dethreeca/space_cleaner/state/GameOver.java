@@ -48,7 +48,7 @@ public class GameOver extends State {
         playAgainRectangle.width = SpaceCleaner.WIDTH * 0.06f;
         playAgainRectangle.height = playAgainRectangle.width;
         playAgainRectangle.x = SpaceCleaner.WIDTH / 2 + playAgainRectangle.width;
-        playAgainRectangle.y = SpaceCleaner.HEIGTH / 2  - gameOverRectangle.height;
+        playAgainRectangle.y = SpaceCleaner.HEIGTH / 2  - gameOverRectangle.height / 2;
         playAgain = new Button(new Texture("back.png"), playAgainRectangle);
         playAgain.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class GameOver extends State {
         backMenuRectangle.width = SpaceCleaner.WIDTH * 0.06f;
         backMenuRectangle.height = backMenuRectangle.width;
         backMenuRectangle.x = SpaceCleaner.WIDTH / 2 - backMenuRectangle.width * 1.5f;
-        backMenuRectangle.y = SpaceCleaner.HEIGTH / 2 - gameOverRectangle.height;
+        backMenuRectangle.y = SpaceCleaner.HEIGTH / 2 - gameOverRectangle.height / 2;
         backMenu = new Button(new Texture("cancel.png"), backMenuRectangle);
         backMenu.setOnClickListener(new Button.OnClickListener() {
             @Override
