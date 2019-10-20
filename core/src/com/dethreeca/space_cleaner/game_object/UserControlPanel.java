@@ -1,5 +1,6 @@
 package com.dethreeca.space_cleaner.game_object;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.dethreeca.space_cleaner.model.User;
@@ -11,7 +12,7 @@ import com.dethreeca.space_cleaner.view_component.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserControlPanel {
+public class UserControlPanel implements View{
     //Constants
     private float bottomMargin;
     private float movementDelta;
@@ -26,7 +27,7 @@ public class UserControlPanel {
     private List<View> views;
 
     private TextView scoreTextView, iceAmmoTextView, laserAmmoTextView,
-            bucketTextView, fuelTextView;
+            bucketTextView, fuelTextView, moneyTextView;
 
     private UserControlPanelListener listener;
 
@@ -41,19 +42,36 @@ public class UserControlPanel {
         initViewComponents();
     }
 
-    public List<View> getViews() {
-        return views;
-    }
-
     public void setListener(UserControlPanelListener listener) {
         this.listener = listener;
     }
 
-    public void update() {
+    @Override
+    public void update(float dt) {
         laserAmmoTextView.setText(String.valueOf(User.getInstance().getCountLaserGun()));
         bucketTextView.setText(String.valueOf(User.getInstance().getCountBucketGun()));
         iceAmmoTextView.setText(String.valueOf(User.getInstance().getCountIceGun()));
         fuelTextView.setText(String.valueOf(User.getInstance().getCountFuel()));
+        moneyTextView.setText(String.valueOf(User.getInstance().getCountMoney()));
+        scoreTextView.setText("Current path: " + User.getInstance().getCurrentPath() + "\n" +
+                "Current level: " + User.getInstance().getCurrentLevel());
+        for (View v: views) {
+            v.update(dt);
+        }
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        for (View view: views) {
+            view.render(sb);
+        }
+    }
+
+    @Override
+    public void dispose() {
+        for (View view: views) {
+            view.dispose();
+        }
     }
 
     private void initConstants() {
@@ -114,7 +132,7 @@ public class UserControlPanel {
 
     private void initPanel() {
         float x = width - textLeftMargin - textHeight * 2;
-        float y = height - textLeftMargin;
+        float y = height - 2 * textLeftMargin;
         iceAmmoTextView = new TextView(new Vector2(x, y));
         iceAmmoTextView.setTextHeight(textHeight);
         iceAmmoTextView.setIcon(textureManager.getTexture(TextureManager.TXV_SHOOT_ICE_TEXTURE));
@@ -133,10 +151,16 @@ public class UserControlPanel {
         fuelTextView = new TextView(new Vector2(x, y));
         fuelTextView.setTextHeight(textHeight);
         fuelTextView.setIcon(textureManager.getTexture(TextureManager.TXV_SHOOT_FUEL_TEXTURE));
+
+        x -= textLeftMargin + textHeight * 2;
+        moneyTextView = new TextView(new Vector2(x, y));
+        moneyTextView.setTextHeight(textHeight);
+        moneyTextView.setIcon(textureManager.getTexture(TextureManager.BTN_SALE_GARBAGE));
         views.add(iceAmmoTextView);
         views.add(laserAmmoTextView);
         views.add(bucketTextView);
         views.add(fuelTextView);
+        views.add(moneyTextView);
     }
 
     public interface UserControlPanelListener {

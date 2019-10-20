@@ -42,6 +42,11 @@ public class TextureManager {
     public static final String TXV_SHOOT_BUCKET_TEXTURE = "txv_shoot_bucket_texture";
     public static final String TXV_SHOOT_FUEL_TEXTURE = "txv_shoot_fuel_texture";
 
+    public static final String BTN_BUY_ICE = "btn_buy_ice";
+    public static final String BTN_BUY_LASER = "btn_buy_laser";
+    public static final String BTN_BUY_FUEL = "btn_buy_fuel";
+    public static final String BTN_SALE_GARBAGE = "btn_sale_garbage";
+
     private Map<String, Texture> textures;
 
     public TextureManager() {
@@ -80,6 +85,11 @@ public class TextureManager {
         textures.put(TXV_SHOOT_FUEL_TEXTURE, new Texture("toplivo.png"));
         textures.put(ICE_ATTACK, new Texture("push_water.png"));
         textures.put(LASER_ATTACK, new Texture("laser_attack.png"));
+
+        textures.put(BTN_BUY_ICE, new Texture("buy_ice.png"));
+        textures.put(BTN_BUY_LASER, new Texture("buy_laser.png"));
+        textures.put(BTN_BUY_FUEL, new Texture("buy_fuel.png"));
+        textures.put(BTN_SALE_GARBAGE, new Texture("buy_coin.png"));
     }
 
     public Texture getTexture(String textureName) {

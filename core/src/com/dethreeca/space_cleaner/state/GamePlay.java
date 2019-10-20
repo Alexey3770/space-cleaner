@@ -1,15 +1,13 @@
 package com.dethreeca.space_cleaner.state;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.dethreeca.space_cleaner.SpaceCleaner;
 import com.dethreeca.space_cleaner.game_object.GameObject;
 import com.dethreeca.space_cleaner.game_object.UserControlPanel;
-import com.dethreeca.space_cleaner.game_object.space_object.Artifact;
 import com.dethreeca.space_cleaner.game_object.space_object.SpaceObject;
+import com.dethreeca.space_cleaner.game_object.user_object.StationShopPanel;
 import com.dethreeca.space_cleaner.game_object.user_object.UserObject;
-import com.dethreeca.space_cleaner.game_object.user_object.ammo.Ammo;
-import com.dethreeca.space_cleaner.game_object.user_object.ammo.LaserAttack;
+import com.dethreeca.space_cleaner.model.User;
 import com.dethreeca.space_cleaner.utils.CollisionService;
 import com.dethreeca.space_cleaner.utils.GameObjectMaker;
 import com.dethreeca.space_cleaner.utils.PlaySoundManager;
@@ -19,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated,
-        CollisionService.CollisionServiceListener, UserControlPanel.UserControlPanelListener {
+        CollisionService.CollisionServiceListener, UserControlPanel.UserControlPanelListener,
+        StationShopPanel.OnResume {
     private State.GameState stateGame = State.GameState.RUN;
 
     //game objects
@@ -34,6 +33,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
     private CollisionService collisionService;
     private UserControlPanel userControlPanel;
     private PlaySoundManager soundManager;
+    private StationShopPanel stationShopPanel;
 
     public GamePlay(GameStateManager gsm) {
         super(gsm);
@@ -44,7 +44,7 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         collisionService = new CollisionService();
         collisionService.setListener(this);
         userControlPanel = new UserControlPanel(SpaceCleaner.WIDTH, SpaceCleaner.HEIGTH, textureManager);
-        addAllView(userControlPanel.getViews());
+        addView(userControlPanel);
         userControlPanel.setListener(this);
         soundManager = new PlaySoundManager();
         initGameObjects();
@@ -103,6 +103,33 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         gsm.set(new GameOver(gsm));
     }
 
+    @Override
+    public void onPauseForStation() {
+        stateGame = GameState.PAUSE;
+        stationShopPanel = new StationShopPanel(textureManager);
+        stationShopPanel.setOnResumeListener(this);
+        addView(stationShopPanel);
+    }
+
+    @Override
+    public void onAddIceAttack() {
+        userObjects.add(gameObjectMaker.createIceAttack());
+        soundManager.playIceAttackSound();
+    }
+
+    @Override
+    public void onAddLaser() {
+        userObjects.add(gameObjectMaker.createLaserAttack());
+        soundManager.playLaserAttackSound();
+    }
+
+    @Override
+    public void onResume() {
+        removeView(stationShopPanel);
+        stationShopPanel = null;
+        stateGame = GameState.RUN;
+    }
+
     private void renderObjects(SpriteBatch sb, List<? extends GameObject> objects) {
         for (GameObject go : objects) {
             go.render(sb);
@@ -114,8 +141,14 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
         updateObjects(dt, spaceObjects);
         updateObjects(dt, userObjects);
         collisionService.checkCollision(userObjects, spaceObjects);
-        userControlPanel.update();
         gameObjectMaker.update(camera, dt);
+        checkFuel();
+    }
+
+    private void checkFuel() {
+        if (User.getInstance().getCountFuel() <= 0) {
+            gsm.set(new GameOver(gsm));
+        }
     }
 
     private void updateObjects(float dt, List<? extends GameObject> objects) {
@@ -152,17 +185,5 @@ public class GamePlay extends State implements GameObjectMaker.OnObjectGenerated
                 i--;
             }
         }
-    }
-
-    @Override
-    public void onAddIceAttack() {
-        userObjects.add(gameObjectMaker.createIceAttack());
-        soundManager.playIceAttackSound();
-    }
-
-    @Override
-    public void onAddLaser() {
-        userObjects.add(gameObjectMaker.createLaserAttack());
-        soundManager.playLaserAttackSound();
     }
 }

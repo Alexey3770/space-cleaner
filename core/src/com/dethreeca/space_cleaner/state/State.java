@@ -61,6 +61,10 @@ public abstract class State {
         components.addAll(view);
     }
 
+    protected void removeView(View view) {
+        components.remove(view);
+    }
+
     public enum GameState
     {
         PAUSE,

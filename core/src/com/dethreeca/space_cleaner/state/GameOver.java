@@ -35,8 +35,8 @@ public class GameOver extends State {
         gameOverTextureRegion = new TextureRegion(new Texture("gameover.png"));
 
         // init play sounds
-        playSoundManager = new PlaySoundManager();
-        playSoundManager.playCollisionSound();
+//        playSoundManager = new PlaySoundManager();
+//        playSoundManager.playCollisionSound();
     }
 
     @Override

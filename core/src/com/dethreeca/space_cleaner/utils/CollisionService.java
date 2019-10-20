@@ -2,6 +2,7 @@ package com.dethreeca.space_cleaner.utils;
 
 import com.dethreeca.space_cleaner.game_object.space_object.Artifact;
 import com.dethreeca.space_cleaner.game_object.space_object.SpaceObject;
+import com.dethreeca.space_cleaner.game_object.space_object.Station;
 import com.dethreeca.space_cleaner.game_object.user_object.Ship;
 import com.dethreeca.space_cleaner.game_object.user_object.UserObject;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.Ammo;
@@ -40,8 +41,12 @@ public class CollisionService {
 
     private void collision(UserObject userObject, SpaceObject spaceObject) {
         if (userObject instanceof Ship) {
-            collisionWithShip(spaceObject);
-        } else if(userObject instanceof Ammo) {
+            if (spaceObject instanceof Station) {
+                collisionWithStation();
+            } else {
+                collisionWithShip(spaceObject);
+            }
+        } else if (userObject instanceof Ammo) {
             collisionWithAmmo((Ammo) userObject, spaceObject);
         }
     }
@@ -50,13 +55,12 @@ public class CollisionService {
         if (spaceObject instanceof Artifact) {
             if (((Artifact) spaceObject).getTypeSpaceObject() == Medium) {
                 spaceObject.remove();
-                User.getInstance().removePlaceInBucket();
                 soundManager.playCleanGarbage();
+                User.getInstance().removePlaceInBucket();
             }
         } else {
             if (listener != null) {
                 listener.onGameOver();
-                soundManager.playCollisionSound();
             }
         }
     }
@@ -67,19 +71,28 @@ public class CollisionService {
                 case Large:
                     if(ammo instanceof IceAttack) {
                         spaceObject.remove();
-                        break;
+                        soundManager.playCleanGarbage();
                     }
+                    break;
                 case Min:
                     if(ammo instanceof LaserAttack) {
                         spaceObject.remove();
-                        break;
+                        soundManager.playCleanGarbage();
                     }
+                    break;
             }
         }
         ammo.startAnimation();
     }
 
+    private void collisionWithStation() {
+        if (listener != null) {
+            listener.onPauseForStation();
+        }
+    }
+
     public interface CollisionServiceListener {
         void onGameOver();
+        void onPauseForStation();
     }
 }

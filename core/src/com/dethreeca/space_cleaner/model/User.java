@@ -78,6 +78,10 @@ public class User {
         return level;
     }
 
+    public float getCurrentPath() {
+        return mCurrentPath;
+    }
+
     public int getCountMoney() {
         return money;
     }
@@ -159,6 +163,13 @@ public class User {
         if (countCountBucketGun < MAX_BUCKET_SIZE) {
             countCountBucketGun++;
             Settings.getInstance().setCountBucketGun(countCountBucketGun);
+        }
+    }
+
+    public void removeFuel() {
+        if (fuelValue > 0) {
+            fuelValue--;
+            Settings.getInstance().setFuelValue(fuelValue);
         }
     }
 }

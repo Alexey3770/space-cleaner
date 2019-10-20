@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.dethreeca.space_cleaner.model.User;
 
 public class Earth implements GameObject {
 
@@ -30,6 +31,7 @@ public class Earth implements GameObject {
 
         if(angle > 360) {
             angle -= 360;
+            User.getInstance().removeFuel();
         }
     }
 

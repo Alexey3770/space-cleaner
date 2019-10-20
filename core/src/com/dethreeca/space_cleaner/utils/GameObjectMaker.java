@@ -11,6 +11,7 @@ import com.dethreeca.space_cleaner.game_object.space_object.SpaceObject;
 import com.dethreeca.space_cleaner.game_object.user_object.UserObject;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.IceAttack;
 import com.dethreeca.space_cleaner.game_object.user_object.ammo.LaserAttack;
+import com.dethreeca.space_cleaner.model.User;
 
 public class GameObjectMaker {
     private float width, height;
@@ -63,6 +64,7 @@ public class GameObjectMaker {
     }
 
     public void update(Camera camera, float dt) {
+        User.getInstance().countingLevel(ship.getPosition().y);
         SpaceObject gameObject = spaceObjectGenerator.generateSpaceObject(camera, earth.getAngle(), dt);
         if (objectGeneratedListener != null && gameObject != null) {
             objectGeneratedListener.onSpaceObjectGenerated(gameObject);
