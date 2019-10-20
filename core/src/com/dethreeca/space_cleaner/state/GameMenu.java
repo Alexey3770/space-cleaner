@@ -11,8 +11,6 @@ import com.dethreeca.space_cleaner.utils.PlaySoundManager;
 import com.dethreeca.space_cleaner.view_component.Button;
 
 public class GameMenu extends State {
-    Rectangle buttonRectangle;
-    TextureRegion buttonTexture;
     Rectangle backGroundRectangle;
     Rectangle startPlayGameRectangle;
     Rectangle openSettingsGameGroundRectangle;

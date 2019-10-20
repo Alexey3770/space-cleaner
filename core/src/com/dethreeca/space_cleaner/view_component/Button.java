@@ -38,6 +38,9 @@ public class Button implements View {
     public void dispose() {
     }
 
+    public void playClickSound() {
+    }
+
     public interface OnClickListener {
         void onClick();
     }
